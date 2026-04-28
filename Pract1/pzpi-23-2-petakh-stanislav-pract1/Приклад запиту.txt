@@ -1,0 +1,63 @@
+Напиши приклад шаблону Facade з допомогою коду. Відобрази всі елементи, з яких він складається. Надай дуже простий приклад. Мова має обов'язково бути C#.
+
+1  using System;
+2
+3  // Subsystem class 1
+4  class Light
+5  {
+6      public void On()
+7      {
+8          Console.WriteLine("Light is ON");
+9      }
+10 }
+11
+12 // Subsystem class 2
+13 class TV
+14 {
+15     public void On()
+16     {
+17         Console.WriteLine("TV is ON");
+18     }
+19 }
+20
+21 // Subsystem class 3
+22 class MusicSystem
+23 {
+24     public void Play()
+25     {
+26         Console.WriteLine("Music is playing");
+27     }
+28 }
+29
+30 // Facade
+31 class HomeFacade
+32 {
+33     private Light light;
+34     private TV tv;
+35     private MusicSystem music;
+36
+37     public HomeFacade()
+38     {
+39         light = new Light();
+40         tv = new TV();
+41         music = new MusicSystem();
+42     }
+43
+44     // Simplified method
+45     public void EveningMode()
+46     {
+47         light.On();
+48         tv.On();
+49         music.Play();
+50     }
+51 }
+52
+53 // Client
+54 class Program
+55 {
+56     static void Main(string[] args)
+57     {
+58         HomeFacade home = new HomeFacade();
+59         home.EveningMode();
+60     }
+61 }
