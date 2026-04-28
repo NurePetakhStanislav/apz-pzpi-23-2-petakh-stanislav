@@ -1,0 +1,64 @@
+Надай фрагменти API, що демонструють роботу програмного коду. Код має мати нумерацію кожного рядка. Відступи теж рахуються. Код має описати приблизну роботу виконання.
+
+1  using System;
+2  using System.Collections.Generic;
+3
+4  // --- API Gateway ---
+5  public class ApiGateway
+6  {
+7      private readonly UserService userService = new UserService();
+8      private readonly ContentService contentService = new ContentService();
+9      private readonly RecommendationService recommendationService = new RecommendationService();
+10
+11     public void GetFeed(int userId)
+12     {
+13         Console.WriteLine("API Gateway: отримано запит на стрічку");
+14
+15         var user = userService.GetUser(userId);
+16         var feed = recommendationService.GetFeed(user);
+17
+18         Console.WriteLine("API Gateway: сформовано відповідь");
+19     }
+20 }
+21
+22 // --- User Service ---
+23 public class UserService
+24 {
+25     public User GetUser(int id)
+26     {
+27         Console.WriteLine("UserService: отримання даних користувача");
+28         return new User { Id = id, Name = "User_" + id };
+29     }
+30 }
+31
+32 // --- Content Service ---
+33 public class ContentService
+34 {
+35     public List<string> GetVideos()
+36     {
+37         Console.WriteLine("ContentService: отримання відео");
+38         return new List<string> { "video1", "video2", "video3" };
+39     }
+40 }
+41
+42 // --- Recommendation Service ---
+43 public class RecommendationService
+44 {
+45     private readonly ContentService contentService = new ContentService();
+46
+47     public List<string> GetFeed(User user)
+48     {
+49         Console.WriteLine("RecommendationService: формування стрічки");
+50
+51         var videos = contentService.GetVideos();
+52
+53         return videos;
+54     }
+55 }
+56
+57 // --- Модель ---
+58 public class User
+59 {
+60     public int Id { get; set; }
+61     public string Name { get; set; }
+62 }
